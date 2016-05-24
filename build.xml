@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="simpleStore" default="dist"
+		 xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+	<path id="maven-ant-tasks.classpath" path="../simpleStore/lib/maven-ant-tasks-2.1.3.jar" />
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+			 uri="antlib:org.apache.maven.artifact.ant"
+			 classpathref="maven-ant-tasks.classpath" />
+
+	<target name="dist" depends="compile, copy-resources, copy-web-resources, compile-tests"/>
+
+	<target name="integration" depends="dist"/>
+
+	<target name="-init-maven" unless="maven.initialized">
+		<mkdir dir="maven"/>
+		<property name="maven.initialized" value="true"/>
+	</target>
+
+	<target name="download" depends="-init-maven">
+		<artifact:pom id="projectPom" file="pom.xml" />
+		<artifact:dependencies filesetId="project.dependencies" pomRefId="projectPom" />
+		<copy todir="maven">
+			<fileset refid="project.dependencies" />
+			<mapper type="flatten" />
+		</copy>
+		<delete file="maven/log4j-1.2.12.jar"/>
+	</target>
+
+	<target name="compile" depends="download">
+		<mkdir dir="target/production"/>
+		<!--compile for production-->
+		<javac debug="true" destdir="target/production" includeantruntime="false">
+			<classpath>
+				<fileset dir="maven">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<src path="src/java"/>
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="compile-tests">
+		<mkdir dir="target/test"/>
+		<!--compile for test-->
+		<javac debug="true" destdir="target/test" includeantruntime="false">
+			<classpath>
+				<fileset dir="maven">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<classpath location="target/production"/>
+			<src path="src/tests"/>
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="clean">
+		<delete dir="target" quiet="true"/>
+	</target>
+
+	<target name="clean-maven-cache" depends="-init-maven">
+		<delete dir="maven" quiet="true"/>
+	</target>
+
+	<target name="copy-resources">
+		<copy file="src/resources/shu/example/endpoints.xml"
+			  todir="target/test/shu/example"/>
+	</target>
+
+	<target name="copy-web-resources">
+		<copy todir="target/web">
+			<fileset dir="src/web"/>
+		</copy>
+		<copy todir="target/web/WEB-INF/lib">
+			<fileset dir="maven"/>
+		</copy>
+		<jar destfile="target/web/WEB-INF/lib/simpleStore.jar">
+			<fileset dir="target/production"/>
+			<fileset dir="src/resources"/>
+		</jar>
+	</target>
+
+	<target name="run-tests" depends="copy-resources">
+		<delete file="target/tests-failed" quiet="true"/>
+		<mkdir dir="target/unittests"/>
+		<junit logfailedtests="yes" tempdir="target/unittests" printsummary="yes">
+			<classpath>
+				<fileset dir="maven">
+					<include name="**/*.jar" />
+				</fileset>
+				<pathelement location="target/production"/>
+				<pathelement location="target/test"/>
+			</classpath>
+			<formatter type="plain" usefile="false"/>
+			<test name="shu.example.APITest" outfile="target/tests-failed"/>
+		</junit>
+		<available file="target/tests-failed" property="tests.failed"/>
+		<delete file="target/tests-failed" quiet="true"/>
+		<fail if="tests.failed" unless="test.xml">One or more tests failed</fail>
+	</target>
+
+</project>
