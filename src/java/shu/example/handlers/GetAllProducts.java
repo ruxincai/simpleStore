@@ -25,7 +25,7 @@ public void handle(@NotNull HttpServletRequest request,
 		throws IOException, SQLException {
 	try (PreparedStatement statement = db.prepareStatement(QUERY)) {
 		Map<String, Map<String, Object>> map = new LinkedHashMap<>();
-		try (ResultSet resultSet = statement.executeQuery()) {
+/*		try (ResultSet resultSet = statement.executeQuery()) {
 
 			writer.write("{\"id\":");
 			writer.write(id);
@@ -54,7 +54,7 @@ public void handle(@NotNull HttpServletRequest request,
 			}
 			writer.write("]}");
 		}
-		writer.write("]");
+		writer.write("]");*/
 	}
 }
 
