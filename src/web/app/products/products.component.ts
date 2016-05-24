@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnActivate, Router, RouteSegment, RouteTree } from '@angular/router';
-
-import { Product, StoreService } from "../store.service.ts";
+import {Product} from "../store.service";
+import {StoreService} from "../store.service";
 
 @Component({
     template: `

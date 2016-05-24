@@ -5,7 +5,7 @@ export class Product {
 }
 
 const PRODUCTS = [
-    new Product(1, 'Dragon Burning Cities', '/images/phone/IP_small.jpg'),
+    new Product(1, 'Dragon Burning Cities', 'images/phone/IP_small.jpg'),
     new Product(2, 'Sky Rains Great White Sharks', 'images/yo.png'),
     new Product(3, 'Giant Asteroid Heading For Earth'),
     new Product(4, 'Procrastinators Meeting Delayed Again'),

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
-
-import { DialogService }         from './dialog.service.ts';
-import { StoreService }           from './store.service.ts';
-import { ProductsComponent } from "./products/products.component.ts";
-import { DetailComponent } from "./detail/detail.component.ts";
+import {DialogService} from "./dialog.service";
+import {StoreService} from "./store.service";
+import {ProductsComponent} from "./products/products.component";
+import {DetailComponent} from "./detail/detail.component";
 
 @Component({
     selector: 'my-app',
