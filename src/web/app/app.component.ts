@@ -4,18 +4,18 @@ import {DialogService} from "./dialog.service";
 import {StoreService} from "./store.service";
 import {ProductsComponent} from "./products/products.component";
 import {DetailComponent} from "./detail/detail.component";
+import {PagingService} from "./paging.service";
 
 @Component({
-    selector: 'my-app',
+    selector: 'test-app',
     template: `
-    <h1 class="title">Online Store</h1>
-    <!--<nav>
-      <a [routerLink]="['/products']">Products</a>
-      <a [routerLink]="['/detail']">Detail</a>
-    </nav>-->
-    <router-outlet></router-outlet>
-  `,
-    providers:  [DialogService, StoreService],
+	<div>
+    <div><img src="images/LOGO.png"></div>
+    <div>Simple Store</div>
+	</div>
+	<router-outlet></router-outlet>
+	`,
+    providers:  [DialogService, StoreService, PagingService],
     directives: [ROUTER_DIRECTIVES]
 })
 @Routes([

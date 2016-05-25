@@ -38,23 +38,4 @@ public abstract void handle(@NotNull HttpServletRequest request,
 		@NotNull List<String> ids)
 		throws IOException, SQLException;
 
-/*@Nullable
-protected static TimeUnit getTimeUnit(@Nullable String time,
-		@NotNull HttpServletResponse response)
-		throws IOException {
-	if (time == null) {
-		sendError(response, HttpServletResponse.SC_BAD_REQUEST,
-				"Missing time parameter");
-		return null;
-	}
-
-	TimeUnit unit = TimeUnit.get(time);
-	if (unit == null) {
-		sendError(response, HttpServletResponse.SC_BAD_REQUEST,
-				"Invalid time parameter");
-		return null;
-	}
-	return unit;
-}*/
-
 }

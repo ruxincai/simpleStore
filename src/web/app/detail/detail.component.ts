@@ -17,15 +17,15 @@ import {StoreService} from "../store.service";
     <p>
       <button (click)="gotoProducts()">Back</button>
     </p>
-    <span>{{product.imgPath}}</span>
-    <img src="{{product.imgPath}}"/>
+    <span>{{product.imagePath}}</span>
+    <img src="{{product.imagePath}}"/>
   </div>
   `,
 })
 export class DetailComponent implements OnActivate  {
     product: Product;
     foo: string;
-    imgPath: string;
+    imagePath: string;
 
     constructor(
         private router: Router,
@@ -37,7 +37,7 @@ export class DetailComponent implements OnActivate  {
         this.service.getProduct(id).then((product: Product) => {
             this.product = product;
             this.foo = product.name;
-            this.imgPath = product.imgPath;
+            this.imagePath = product.imagePath;
         });
     }
 

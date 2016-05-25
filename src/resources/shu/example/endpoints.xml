@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints>
 	<endpoint name="products">
-		<method name="GET" handler="shu.example.handlers.GetAllProducts"/>
+		<method name="GET" handler="shu.example.handlers.ProductsHandler"/>
 	</endpoint>
 </endpoints>
