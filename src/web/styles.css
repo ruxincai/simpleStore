@@ -45,23 +45,14 @@ button {
     padding: 5px 15px;
     background-color: #e4e4e4;
 }
-.detail button {
-    background-color: #dddddd;
-}
 button:hover, button:focus {
     background-color: #eeeeee;
-}
-.detail button:hover, .detail button:focus {
-    background-color: #f7f7f7;
 }
 button:active {
     background-color: #eeeeee;
     border: 1px solid #007db8;
     color: #007db8;
     padding: 4px 14px;
-}
-.detail button:active {
-    background-color: #e4e4e4;
 }
 button.default {
     color: #ffffff;
@@ -76,15 +67,9 @@ button.default:active {
     border: 1px solid #ffffff;
     padding: 4px 14px;
 }
-.detail button.default:active {
-    background-color: #e4e4e4;
-}
 button:disabled, button:hover:disabled, button:focus:disabled {
     color: #aaaaaa;
     background-color: #eeeeee;
-}
-.detail button:disabled {
-    background-color: #e4e4e4;
 }
 
 div, form {
@@ -264,12 +249,50 @@ test-products button:hover, test-products button:focus {
 test-detail {
     flex-direction: row;
 }
-test-detail > :first-child {
-    max-width: 300px;
+test-detail .column {
+    padding: 30px 20px;
+}
+test-detail > :first-child > :first-child > img {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    padding: 15px;
+}
+test-detail > :first-child > :first-child > .row {
+    align-self: center;
+}
+test-detail .row  > img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+test-detail button {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: bolder;
 }
 
 test-cart {
 
+}
+
+.addToCart {
+    background-color: yellow;
+}
+.addToCart:hover, .addToCart:focus {
+    background-color: gold;
+}
+.removeFromCart {
+    background-color: red;
+    color: #ffffff;
+}
+.removeFromCart:hover, .removeFromCart:focus {
+    background-color: darkred;
 }
 
 test-modal {

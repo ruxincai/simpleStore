@@ -2,43 +2,59 @@ import { Component } from '@angular/core';
 import { OnActivate, Router, RouteSegment } from '@angular/router';
 import {Product} from "../store.service";
 import {StoreService} from "../store.service";
+import {getImage} from "../utils";
 
 @Component({
+    selector: 'test-detail',
     template: `
-  <h2>HEROES</h2>
-  <div *ngIf="product">
-    <h3>"{{product.name}}"</h3>
-    <div>
-      <label>Id: </label>{{product.id}}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="product.name" placeholder="name"/>
+    <div *ngIf="product">
+
+    <div class="column">
+    <img src="{{currentImage}}"/>
+    <div class="row">
+    <img src="{{imagePath(1)}}" (mouseover)="previewImage(1)"/>
+    <img src="{{imagePath(2)}}" (mouseover)="previewImage(2)"/>
     </div>
-    <p>
-      <button (click)="gotoProducts()">Back</button>
-    </p>
-    <span>{{product.imagePath}}</span>
-    <img src="{{product.imagePath}}"/>
-  </div>
-  `,
+    </div>
+
+    <div class="column stretch">
+    <h2>{{product.name}}</h2>
+    <h3>CDN$ {{product.price}}</h3>
+    <p>{{product.description}}</p>
+    </div>
+
+    <div class="column">
+    <button class="addToCart">Add to cart</button>
+    <button class="removeFromCart">Remove from cart</button>
+    <button (click)="gotoProducts()"><< Back to Products</button>
+    </div>
+
+    </div>
+    `,
 })
 export class DetailComponent implements OnActivate  {
     product: Product;
-    foo: string;
-    imagePath: string;
+    currentImage: string;
+    counts: number[];
 
-    constructor(
-        private router: Router,
-        private service: StoreService) {}
-
+    constructor(private router: Router,
+        private service: StoreService) {
+    }
 
     routerOnActivate(curr: RouteSegment): void {
         let id = +curr.getParam('id');
         this.service.getProduct(id).then((product: Product) => {
             this.product = product;
-            this.foo = product.name;
-            this.imagePath = product.imagePath;
+            this.currentImage = getImage(product, 1);
         });
+    }
+
+    imagePath(size: number) {
+        return getImage(this.product, size);
+    }
+
+    previewImage(size: number) {
+        this.currentImage = getImage(this.product, size);
     }
 
     gotoProducts() {
