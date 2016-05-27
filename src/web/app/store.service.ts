@@ -14,24 +14,21 @@ export interface Product {
 let productsPromise = Promise.resolve(httpGet('api/products').then(extractJSON));
 
 export class CartItem {
-    constructor(public id: number, public name: string) { }
+    private totalPrice;
+    constructor(public code: string, public product: Product,
+            public quantity: number) {
+    }
+    getTotalPrice() {
+        return this.quantity * this.product.price;
+    }
 }
-
-let CART_ITEMS = [
-    new CartItem(11, 'Mr. Nice'),
-    new CartItem(12, 'Narco'),
-    new CartItem(13, 'Bombasto'),
-    new CartItem(14, 'Celeritas'),
-    new CartItem(15, 'Magneta'),
-    new CartItem(16, 'RubberMan')
-];
-
-let cartItemsPromise = Promise.resolve(CART_ITEMS);
 
 @Injectable()
 export class StoreService {
 
-    static nextProductId = 100;
+    static nextCartItemId = 100;
+
+    cartItems: CartItem[] = [];
 
     getProducts() { return productsPromise; }
 
@@ -39,18 +36,71 @@ export class StoreService {
         return productsPromise.then(list => list.filter(c => c.id === +id)[0]);
     }
 
-    addProduct(name: string) {
-        name = name.trim();
-        if (name) {
-            let product = new Product(StoreService.nextProductId++, 'NC', name, 111);
-            productsPromise.then(items => items.push(product));
+    addCartItem(product: Product, quantity?: number) {
+        let item = this.cartItems.find(item => item.code === product.code);
+        if (item) {
+            if (quantity == 0) {
+                this.cartItems.splice(this.cartItems.indexOf(item), 1);
+            }
+            else if (quantity > 0) {
+                item.quantity = quantity;
+            }
+            else {
+                ++item.quantity;
+            }
+        }
+        else {
+            this.cartItems.push(new CartItem(product.code, product,
+                    quantity === undefined ? 1 : quantity));
         }
     }
 
-    getCartItems() { return cartItemsPromise; }
-
-    getCartItem(id: number | string) {
-        return cartItemsPromise
-            .then(items => items.filter(h => h.id === +id)[0]);
+    removeCartItem(item: CartItem) {
+        let idx = this.cartItems.indexOf(item);
+        if (idx > -1) {
+            this.cartItems.splice(idx, 1);
+        }
     }
+
+    clearCart() {
+        this.cartItems = [];
+    }
+
+    getCartItems() { return this.cartItems; }
+
+    getCartItem(code: string) {
+        return this.cartItems.find(item => item.code === code);
+    }
+
+    getTotalCount(code?: string) {
+        let count = 0;
+        if (code === undefined) {
+            this.cartItems.forEach(item => {
+                count += item.quantity;
+            });
+        }
+        this.cartItems.forEach(item => {
+            if (item.code === code) {
+                ++count;
+            }
+        });
+        return count;
+    }
+
+    getTotalPrice(code?: string) {
+        let price = 0;
+        if (code === undefined) {
+            this.cartItems.forEach(item => {
+                price += item.product.price * item.quantity;
+            });
+            return price;
+        }
+        this.cartItems.forEach(item => {
+           if (item.code === code) {
+               price += item.product.price * item.quantity;
+           }
+        });
+        return price;
+    }
+
 }

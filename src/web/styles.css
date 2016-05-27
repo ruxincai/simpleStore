@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Internal12';
+    src: url('fonts/Internal12.ttf');
+}
+
 html, body {
     width: 100%;
     height: 100%;
@@ -231,6 +236,13 @@ test-products > div {
 test-products > .cartInfo {
     align-self: flex-end;
     font-size: larger;
+    margin-right: 20px;
+}
+test-products > .cartInfo > *{
+    vertical-align: middle;
+}
+test-products > .cartInfo > :last-child {
+    margin-left: 15px;
 }
 test-products .listTable img {
     width: 80px;
@@ -249,7 +261,7 @@ test-products button:hover, test-products button:focus {
 test-detail {
     flex-direction: row;
 }
-test-detail .column {
+test-detail .column, test-cart .column {
     padding: 30px 20px;
 }
 test-detail > :first-child > :first-child > img {
@@ -270,7 +282,7 @@ test-detail .row  > img {
     cursor: pointer;
     margin: 10px;
 }
-test-detail button {
+test-detail button, test-cart button {
     border: 1px solid;
     border-radius: 5px;
     margin: 5px;
@@ -278,7 +290,29 @@ test-detail button {
 }
 
 test-cart {
-
+    flex-direction: column;
+    align-self: stretch;
+    overflow: hidden;
+}
+test-cart .editBtn {
+    font-family: 'Internal12';
+    align-self: center;
+    padding: 7px 9px;
+    margin-left: 10px;
+}
+test-cart > :last-child {
+    align-self: stretch;
+    flex: 1 1 auto;
+}
+test-cart > :last-child > :first-child{
+    align-self: stretch;
+    flex: 1 1 auto;
+    max-width: 800px;
+    overflow-y: auto;
+    margin: 25px 30px;
+}
+test-cart input {
+    width: 35px;
 }
 
 .addToCart {
@@ -288,11 +322,20 @@ test-cart {
     background-color: gold;
 }
 .removeFromCart {
-    background-color: red;
+    background-color: #ce1126;
     color: #ffffff;
+    margin-bottom: 30px;
 }
 .removeFromCart:hover, .removeFromCart:focus {
     background-color: darkred;
+}
+.checkout {
+    background-color: #0070aa;
+    color: #ffffff;
+}
+.checkout:hover, .checkout:focus {
+    background-color: #9ad3fd;
+    border: 1px solid;
 }
 
 test-modal {

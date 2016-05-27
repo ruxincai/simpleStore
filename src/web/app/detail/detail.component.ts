@@ -58,10 +58,6 @@ export class DetailComponent implements OnActivate  {
     }
 
     gotoProducts() {
-        let productId = this.product ? this.product.id : null;
-        // Pass along the hero id if available
-        // so that the HeroList component can select that hero.
-        // Add a totally useless `foo` parameter for kicks.
         this.router.navigate([`/products`]);
     }
 }

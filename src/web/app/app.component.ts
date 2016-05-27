@@ -5,6 +5,7 @@ import {StoreService} from "./store.service";
 import {ProductsComponent} from "./products/products.component";
 import {DetailComponent} from "./detail/detail.component";
 import {PagingService} from "./paging.service";
+import {CartComponent} from "./cart/cart.component";
 
 @Component({
     selector: 'test-app',
@@ -21,7 +22,8 @@ import {PagingService} from "./paging.service";
 @Routes([
     {path: '',  component: ProductsComponent}, //default route
     {path: '/products',  component: ProductsComponent},
-    {path: '/detail/:id', component: DetailComponent}
+    {path: '/detail/:id', component: DetailComponent},
+    {path: '/cart',  component: CartComponent}
 ])
 export class AppComponent implements OnInit {
     constructor(private router: Router) {}

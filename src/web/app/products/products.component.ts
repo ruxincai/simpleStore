@@ -4,8 +4,7 @@ import {Product} from "../store.service";
 import {StoreService} from "../store.service";
 import {PagingService} from "../paging.service";
 import {getImage} from "../utils";
-import {extractJSON} from "../http";
-import {httpGet} from "../http";
+import {CartItem} from "../store.service";
 
 @Component({
     selector: 'test-products',
@@ -15,7 +14,11 @@ import {httpGet} from "../http";
 	<!--<input #input placeholder="Search Products" type="text" size="30" [ngFormControl]="searchTextControl" [(ngModel)]="productSearchText">-->
 	<input #input placeholder="Search Products" type="text" size="30" >
 	</div>
-	<div class="cartInfo">cart info</div>
+	<div class="cartInfo clickable" (click)="gotoCart($event)">
+	<img src="images/cart.png" width="20px" height="20px"/>
+	<span>{{storeService.getTotalCount()}} items</span>
+	<span>CDN$ {{storeService.getTotalPrice()}}</span>
+	</div>
 	<div class="stretch">
 	<table class="listTable">
 	<tbody>
@@ -25,14 +28,18 @@ import {httpGet} from "../http";
 	<td class="wrap">{{item.name}}</td>
 	<td class="wrap">{{item.description}}</td>
 	<td>{{item.price}}</td>
-	<td><button>Add to Cart</button></td>
+	<td><button (click)="addToCart($event, item)">Add to Cart</button></td>
 	</tr>
 	</tbody>
 	</table>
 	</div>
 	<!--<div *ngIf="error">{{error}}</div>-->
 	<!--<div *ngIf="!ready" class="spinner"></div>-->
-	<div class="cartInfo">cart info</div>
+	<div class="cartInfo">
+	<img src="images/cart.png" width="20px" height="20px"/>
+	<span>{{storeService.getTotalCount()}} items</span>
+	<span>CDN$ {{storeService.getTotalPrice()}}</span>
+	</div>
 	<!-- pager -->
 	<ul *ngIf="pager.pages && pager.pages.length > 0" class="pagination">
 		<li class="clickable" [ngClass]="{disabled: pager.currentPage === 1}">
@@ -108,4 +115,13 @@ export class ProductsComponent implements OnActivate {
         //this.router.navigate([`./${product.id}`], this.currSegment);
     }
 
+    addToCart(event: any, product: Product) {
+        event.stopPropagation();
+        event.preventDefault();
+        this.storeService.addCartItem(product);
+    }
+
+    gotoCart(event: any) {
+        this.router.navigate([`/cart`]);
+    }
 }
