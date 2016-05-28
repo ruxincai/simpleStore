@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import { OnActivate, Router, RouteSegment, RouteTree } from '@angular/router';
+import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
 import {StoreService} from "../store.service";
 import {CartItem} from "../store.service";
+import {build} from "../utils";
 
 @Component({
 	selector: 'test-cart',
@@ -40,7 +41,7 @@ import {CartItem} from "../store.service";
     <button (click)="gotoProducts()"><< Back to Products</button>
     <button [disabled]="storeService.cartItems.length == 0" class="removeFromCart" (click)="storeService.clearCart()">Clear Cart</button>
     <button [disabled]="storeService.getTotalPrice() == 0" (click)="checkout('PayPal', true)" class="checkout">Check out using PayPal</button>
-    <button [disabled]="storeService.getTotalPrice() == 0" (click)="checkout('Google', true)" class="checkout">Check out using Google</button>
+    <img src="images/btn_buynowCC_LG.gif" alt="PayPal - The safer, easier way to pay online!">
     </div>
 
     </div>
@@ -48,19 +49,18 @@ import {CartItem} from "../store.service";
 })
 
 export class CartComponent implements OnActivate {
-	checkoutParams;
+	checkoutParams: {} = {};
+	clearCart: boolean;
 
 	constructor(private storeService: StoreService,
 			private router: Router) {
-		this.addCheckoutParameters('PayPal', '34590825f');
-		this.addCheckoutParameters('Google', 'safweof3223', {
-			ship_method_name_1: "UPS Next Day Air",
-			ship_method_price_1: "20.00",
-			ship_method_currency_1: "USD",
-			ship_method_name_2: "UPS Ground",
-			ship_method_price_2: "15.00",
-			ship_method_currency_2: "USD"
-		})
+		this.addCheckoutParameters('PayPal', {
+			cmd: "_cart",
+			business: 'ruxincai@msn.com',
+			upload: "1",
+			rm: "2",
+			charset: "utf-8"
+		});
 	}
 
 	itemIdTracker(i: number, c: CartItem): string {
@@ -92,20 +92,53 @@ export class CartComponent implements OnActivate {
 			case 'PayPal':
 				this.checkoutPayPal(params, clearCart);
 				break;
-			case 'Google':
-				this.checkoutGoogle(params, clearCart);
-				break;
+			//other payment method goes here.
 			default:
 				throw "Unknown checkout service: '" + params.serviceName + "'.";
 		}
 	}
 
-	addCheckoutParameters(service: string, merchantId: string, options?:any) {
-		//this.checkoutParams.add();
+	addCheckoutParameters(service: string, options?:any) {
+		this.checkoutParams[service] = {
+			serviceName: service, options: options
+		};
 	}
 
 	checkoutPayPal(params, clearCart) {
-		//
+		let form = build({
+			tag: 'form',
+			action: 'https://www.paypal.com/cgi-bin/webscr',
+			method: 'POST',
+			style: { display: 'none' }
+		});
+
+		for (var i = 0; i < this.storeService.cartItems.length; i++) {
+			let item = this.storeService.cartItems[i];
+			let ctr = i + 1;
+			form.appendChild(build({
+				tag: 'input', type: 'text', name: 'item_number_' + ctr, value: item.code.toString()
+			}));
+			form.appendChild(build({
+				tag: 'input', type: 'text', name: 'item_name_' + ctr, value: item.product.name.toString()
+			}));
+			form.appendChild(build({
+				tag: 'input', type: 'text', name: 'quantity_' + ctr, value: item.quantity.toString()
+			}));
+			form.appendChild(build({
+				tag: 'input', type: 'text', name: 'amount_' + ctr, value: item.getTotalPrice().toFixed(2).toString()
+			}));
+		}
+		if (params.options) {
+			Object.keys(params.options).forEach(key => {
+				form.appendChild(build({
+					tag: 'input', type: 'hidden', name: key, value: params.options[key]
+				}));
+			});
+		}
+
+		// submit form
+		this.clearCart = clearCart == null || clearCart;
+		form.submit();
 	}
 
 	gotoProducts() {
