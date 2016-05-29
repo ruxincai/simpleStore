@@ -14,7 +14,6 @@ export interface Product {
 let productsPromise = Promise.resolve(httpGet('api/products').then(extractJSON));
 
 export class CartItem {
-    private totalPrice;
     constructor(public code: string, public product: Product,
             public quantity: number) {
     }
@@ -26,14 +25,26 @@ export class CartItem {
 @Injectable()
 export class StoreService {
 
-    static nextCartItemId = 100;
-
     cartItems: CartItem[] = [];
+
+    constructor() {
+        //load cartItems
+        let items = JSON.parse(localStorage.getItem('cartItems'));
+        if (items !== null) {
+            this.cartItems = items;
+        }
+    }
 
     getProducts() { return productsPromise; }
 
     getProduct(id: number | string) {
         return productsPromise.then(list => list.filter(c => c.id === +id)[0]);
+    }
+
+    saveCartItems() {
+        let t = JSON.stringify(this.cartItems);
+        console.log('save cart items: ', t);
+        localStorage['cartItems'] = t;
     }
 
     addCartItem(product: Product, quantity?: number) {
@@ -53,6 +64,7 @@ export class StoreService {
             this.cartItems.push(new CartItem(product.code, product,
                     quantity === undefined ? 1 : quantity));
         }
+        this.saveCartItems();
     }
 
     removeCartItem(item: CartItem) {
@@ -60,16 +72,28 @@ export class StoreService {
         if (idx > -1) {
             this.cartItems.splice(idx, 1);
         }
+        this.saveCartItems();
+    }
+
+    removeItem(p: Product) {
+        let item = this.getCartItem(p.code);
+        if (item != null) {
+            this.removeCartItem(item);
+        }
     }
 
     clearCart() {
         this.cartItems = [];
+        this.saveCartItems();
     }
-
-    getCartItems() { return this.cartItems; }
 
     getCartItem(code: string) {
         return this.cartItems.find(item => item.code === code);
+    }
+
+    hasItem(product?: Product) {
+        return product && this.cartItems.find(item =>
+                item.code == product.code) != null;
     }
 
     getTotalCount(code?: string) {
@@ -93,14 +117,14 @@ export class StoreService {
             this.cartItems.forEach(item => {
                 price += item.product.price * item.quantity;
             });
-            return price;
+            return price.toFixed(2);
         }
         this.cartItems.forEach(item => {
-           if (item.code === code) {
-               price += item.product.price * item.quantity;
-           }
+            if (item.code === code) {
+                price += item.product.price * item.quantity;
+            }
         });
-        return price;
+        return price.toFixed(2);
     }
 
 }

@@ -3,6 +3,7 @@ import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
 import {StoreService} from "../store.service";
 import {CartItem} from "../store.service";
 import {build} from "../utils";
+import {Product} from "../store.service";
 
 @Component({
 	selector: 'test-cart',
@@ -22,10 +23,12 @@ import {build} from "../utils";
 	</thead>
 	<tbody>
 	<tr *ngFor="let item of storeService.cartItems; let i=index; trackBy:itemIdTracker">
-	<td align="left">{{item.product.name}}</td>
+	<td align="left" [class]="">{{item.product.name}}</td>
 	<td align="center"><input #input type="number" value="{{item.quantity}}" (input)="changeQuantity(input, item)"></td>
-	<td align="center">{{item.getTotalPrice()}}</td>
-	<td align="center" width="20px" style="color: #ce1126"><span class="editBtn clickable" (click)="storeService.removeCartItem(item)">&#58885;</span></td>
+	<td align="center">{{getTotalPrice(item)}}</td>
+	<td align="center" width="20px" style="color: #ce1126">
+	<span class="editBtn clickable" (click)="storeService.removeCartItem(item)" title="Remove from the cart">&#58885;</span>
+	</td>
 	</tr>
 	<tr>
 	<td align="left">Total</td>
@@ -48,7 +51,7 @@ import {build} from "../utils";
 	`
 })
 
-export class CartComponent implements OnActivate {
+export class CartComponent {
 	checkoutParams: {} = {};
 	clearCart: boolean;
 
@@ -68,7 +71,7 @@ export class CartComponent implements OnActivate {
 	}
 
 	changeQuantity(target: any, item: CartItem) {
-		if (target.value < 0) {
+		if (target.value == '' || target.value < 0) {
 			target.value = 0;
 		}
 		item.quantity = parseInt(target.value);
@@ -116,16 +119,16 @@ export class CartComponent implements OnActivate {
 			let item = this.storeService.cartItems[i];
 			let ctr = i + 1;
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'item_number_' + ctr, value: item.code.toString()
+				tag: 'input', type: 'text', name: 'item_number_' + ctr, value: item.code
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'item_name_' + ctr, value: item.product.name.toString()
+				tag: 'input', type: 'text', name: 'item_name_' + ctr, value: item.product.name
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'quantity_' + ctr, value: item.quantity.toString()
+				tag: 'input', type: 'text', name: 'quantity_' + ctr, value: item.quantity
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'amount_' + ctr, value: item.getTotalPrice().toFixed(2).toString()
+				tag: 'input', type: 'text', name: 'amount_' + ctr, value: this.getTotalPrice(item).toFixed(2)
 			}));
 		}
 		if (params.options) {
@@ -141,7 +144,11 @@ export class CartComponent implements OnActivate {
 		form.submit();
 	}
 
+	getTotalPrice(cartItem: CartItem) {
+		return cartItem != null ? cartItem.quantity * cartItem.product.price : 0;
+	}
+
 	gotoProducts() {
-		this.router.navigate([`/products`]);
+		window.location.href = '/simpleStore/products';
 	}
 }

@@ -47,7 +47,7 @@ button {
     border-width: 0;
     font-size: 11px;
     margin: 0;
-    padding: 5px 15px;
+    padding: 8px 15px;
     background-color: #e4e4e4;
 }
 button:hover, button:focus {
@@ -57,7 +57,6 @@ button:active {
     background-color: #eeeeee;
     border: 1px solid #007db8;
     color: #007db8;
-    padding: 4px 14px;
 }
 button.default {
     color: #ffffff;
@@ -70,7 +69,6 @@ button.default:active {
     color: #007db8;
     background-color: #f7f7f7;
     border: 1px solid #ffffff;
-    padding: 4px 14px;
 }
 button:disabled, button:hover:disabled, button:focus:disabled {
     color: #aaaaaa;
@@ -109,10 +107,6 @@ div, form {
 .heading2 {
     font-size: 16px;
     padding: 5px 10px;
-}
-
-.detail {
-    background-color: #eeeeee;
 }
 
 .clickable {
@@ -155,13 +149,6 @@ div, form {
 .listTable > thead > tr > td, .listTable > tbody > tr > td {
     height: 18px;
     padding: 5px 10px;
-}
-
-.multiValue > .active {
-    font-weight: bold;
-}
-.multiValue > :not(.active) {
-    color: #848484;
 }
 
 test-app {
@@ -233,15 +220,15 @@ test-products > div {
     margin-bottom: 10px;
     display: block;
 }
-test-products > .cartInfo {
+.cartInfo {
     align-self: flex-end;
     font-size: larger;
-    margin-right: 20px;
+    margin: 5px 20px;
 }
-test-products > .cartInfo > *{
+.cartInfo > *{
     vertical-align: middle;
 }
-test-products > .cartInfo > :last-child {
+.cartInfo > :last-child {
     margin-left: 15px;
 }
 test-products .listTable img {
@@ -285,8 +272,10 @@ test-detail .row  > img {
 test-detail button, test-cart button {
     border: 1px solid;
     border-radius: 5px;
-    margin: 5px;
     font-weight: bolder;
+}
+test-detail .cartInfo  {
+    margin-top: 20px;
 }
 
 test-cart {
@@ -317,16 +306,23 @@ test-cart input {
 
 .addToCart {
     background-color: yellow;
+    margin-top: 35px;
 }
 .addToCart:hover, .addToCart:focus {
     background-color: gold;
 }
+.addToCart:active{
+    background-color: darkgoldenrod;
+}
 .removeFromCart {
     background-color: #ce1126;
     color: #ffffff;
-    margin-bottom: 30px;
+    margin: 15px 0 35px;
 }
 .removeFromCart:hover, .removeFromCart:focus {
+    background-color: mediumvioletred;
+}
+.removeFromCart:active {
     background-color: darkred;
 }
 .checkout {
@@ -334,36 +330,12 @@ test-cart input {
     color: #ffffff;
 }
 .checkout:hover, .checkout:focus {
-    background-color: #9ad3fd;
+    background-color:  #9ad3fd;;
     border: 1px solid;
 }
-
-test-modal {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .25);
+.checkout:active {
+    background-color: lightskyblue;
 }
-test-modal > * {
-    position: absolute;
-    flex-direction: column;
-    padding: 25px;
-    background-color: #ffffff;
-    box-shadow: 4px 4px 6px #888888;
-}
-test-modal > * > :first-child {
-    font-size: 18px;
-}
-test-modal > * > :nth-child(3) {
-    flex: 0 0 auto;
-    align-self: flex-end;
-}
-test-modal > * > :nth-child(3) > button {
-    margin-left: 10px;
-}
-
 
 .pagination {
     display: inline-block;

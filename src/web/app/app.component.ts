@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {DialogService} from "./dialog.service";
 import {StoreService} from "./store.service";
@@ -22,13 +22,10 @@ import {CartComponent} from "./cart/cart.component";
 @Routes([
     {path: '',  component: ProductsComponent}, //default route
     {path: '/products',  component: ProductsComponent},
-    {path: '/detail/:id', component: DetailComponent},
+    {path: '/detail', component: DetailComponent},
     {path: '/cart',  component: CartComponent}
 ])
-export class AppComponent implements OnInit {
-    constructor(private router: Router) {}
-
-    ngOnInit() {
-        this.router.navigate(['/']);
+export class AppComponent {
+    constructor(private router: Router) {
     }
 }

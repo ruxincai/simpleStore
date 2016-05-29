@@ -6,9 +6,9 @@
 
     <display-name>Simple Store</display-name>
 
-    <welcome-file-list>
+<!--    <welcome-file-list>
         <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
 
     <servlet>
         <servlet-name>api</servlet-name>
@@ -17,6 +17,18 @@
     <servlet-mapping>
         <servlet-name>api</servlet-name>
         <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>routing</servlet-name>
+        <servlet-class>shu.example.RoutingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>routing</servlet-name>
+        <url-pattern/>
+        <url-pattern>/products</url-pattern>
+        <url-pattern>/detail/*</url-pattern>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
 
 </web-app>
