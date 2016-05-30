@@ -49,7 +49,8 @@ public void handle(@NotNull HttpServletRequest request,
 				writer.write("\",\"price\":");
 				writer.write(String.valueOf(resultSet.getDouble(5)));
 				writer.write(",\"imagePath\":\"");
-				writer.write(resultSet.getString(6));
+				String path = resultSet.getString(6);
+				writer.write(path == null ? "" : path);
 				writer.write("\"}");
 			}
 			writer.write("]");

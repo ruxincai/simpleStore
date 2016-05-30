@@ -11,7 +11,8 @@
       <root url="jar://$PROJECT_DIR$/maven/servlet-api-2.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/maven/spring-core-2.0.8.jar!/" />
       <root url="jar://$PROJECT_DIR$/maven/spring-mock-2.0.8.jar!/" />
-      <root url="jar://$PROJECT_DIR$/maven/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/maven/commons-logging-1.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/maven/javax.json-api-1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
