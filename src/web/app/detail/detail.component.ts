@@ -17,7 +17,7 @@ import {getImage} from "../utils";
     </div>
     <div *ngIf="p != null" class="column stretch">
     <h2>{{p.name}}</h2>
-    <h3>CDN$ {{p.price}}</h3>
+    <h3>CAD$ {{p.price}}</h3>
     <p class="stretch">{{p.description}}</p>
     </div>
     <div class="column">
@@ -26,7 +26,7 @@ import {getImage} from "../utils";
     <button class="removeFromCart" (click)="storeService.removeItem(p)">Remove from cart</button>
     <div class="cartInfo clickable" (click)="gotoCart($event)">
 	<img src="images/cart.png" width="20px" height="20px"/>
-	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} (CDN)</span>
+	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} (CAD)</span>
 	</div>
 	<div *ngIf="storeService.hasItem(p)" style="align-self: center; margin: 5px 0 15px">This item is already in the cart</div>
     </div>
@@ -60,11 +60,5 @@ export class DetailComponent implements OnActivate {
 
     gotoCart(event: any) {
         window.location.href = '/simpleStore/cart';
-    }
-
-    ngOnDestroy() {
-        let t = JSON.stringify(this.storeService.cartItems);
-        console.log('detail page onDestroy, items stored: ', t);
-        localStorage.setItem('cartItems', t);
     }
 }

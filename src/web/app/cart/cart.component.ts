@@ -19,7 +19,7 @@ import {Product} from "../store.service";
 	<thead>
 	<th>Item</th>
 	<th>Quantity</th>
-	<th>Price (CDN$)</th>
+	<th>Price (CAD$)</th>
 	</thead>
 	<tbody>
 	<tr *ngFor="let item of storeService.cartItems; let i=index; trackBy:itemIdTracker">
@@ -58,11 +58,14 @@ export class CartComponent {
 	constructor(private storeService: StoreService,
 			private router: Router) {
 		this.addCheckoutParameters('PayPal', {
-			cmd: "_cart",
+			cmd: '_cart',
 			business: 'ruxincai@msn.com',
-			upload: "1",
-			rm: "2",
-			charset: "utf-8"
+			upload: '1',
+			rm: '2',
+			charset: 'utf-8',
+			notify_url: 'http://127.0.0.1/simpleStore/ipn',
+			return: 'http://127.0.0.1/simpleStore/checkout',
+			cancel_return: 'http://127.0.0.1/simpleStore/cancel'
 		});
 	}
 
@@ -110,7 +113,7 @@ export class CartComponent {
 	checkoutPayPal(params, clearCart) {
 		let form = build({
 			tag: 'form',
-			action: 'https://www.paypal.com/cgi-bin/webscr',
+			action: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
 			method: 'POST',
 			style: { display: 'none' }
 		});
@@ -119,16 +122,16 @@ export class CartComponent {
 			let item = this.storeService.cartItems[i];
 			let ctr = i + 1;
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'item_number_' + ctr, value: item.code
+				tag: 'input', type: 'hidden', name: 'item_number_' + ctr, value: item.code
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'item_name_' + ctr, value: item.product.name
+				tag: 'input', type: 'hidden', name: 'item_name_' + ctr, value: item.product.name
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'quantity_' + ctr, value: item.quantity
+				tag: 'input', type: 'hidden', name: 'quantity_' + ctr, value: item.quantity
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'text', name: 'amount_' + ctr, value: this.getTotalPrice(item).toFixed(2)
+				tag: 'input', type: 'hidden', name: 'amount_' + ctr, value: this.getTotalPrice(item).toFixed(2)
 			}));
 		}
 		if (params.options) {

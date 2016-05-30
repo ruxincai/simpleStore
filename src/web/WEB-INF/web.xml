@@ -6,10 +6,6 @@
 
     <display-name>Simple Store</display-name>
 
-<!--    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>-->
-
     <servlet>
         <servlet-name>api</servlet-name>
         <servlet-class>shu.example.APIServlet</servlet-class>
@@ -29,6 +25,9 @@
         <url-pattern>/products</url-pattern>
         <url-pattern>/detail/*</url-pattern>
         <url-pattern>/cart</url-pattern>
+        <url-pattern>/ipn</url-pattern>
+        <url-pattern>/cancel</url-pattern>
+        <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
 
 </web-app>

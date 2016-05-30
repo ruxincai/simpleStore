@@ -40,7 +40,9 @@ public void service(@NotNull ServletRequest servletRequest,
 	HttpServletRequest request = (HttpServletRequest) servletRequest;
 	HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-	if (!"GET".equals(request.getMethod())) {
+	if (!"GET".equals(request.getMethod()) &&
+			"POST".equals(request.getMethod()) &&
+					!request.getRequestURI().endsWith("/checkout")) {
 		response.setHeader("Allow", "GET");
 		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		return;

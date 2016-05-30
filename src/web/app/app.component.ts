@@ -6,6 +6,9 @@ import {ProductsComponent} from "./products/products.component";
 import {DetailComponent} from "./detail/detail.component";
 import {PagingService} from "./paging.service";
 import {CartComponent} from "./cart/cart.component";
+import {CancelComponent} from "./confirmation/cancel.component";
+import {IPNComponent} from "./confirmation/ipn.component";
+import {CheckOutComponent} from "./confirmation/checkout.component";
 
 @Component({
     selector: 'test-app',
@@ -23,7 +26,10 @@ import {CartComponent} from "./cart/cart.component";
     {path: '',  component: ProductsComponent}, //default route
     {path: '/products',  component: ProductsComponent},
     {path: '/detail', component: DetailComponent},
-    {path: '/cart',  component: CartComponent}
+    {path: '/cart',  component: CartComponent},
+    {path: '/ipn',  component: IPNComponent},
+    {path: '/cancel',  component: CancelComponent},
+    {path: '/checkout',  component: CheckOutComponent}
 ])
 export class AppComponent {
     constructor(private router: Router) {
