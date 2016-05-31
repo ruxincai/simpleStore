@@ -3,4 +3,7 @@
 	<endpoint name="products">
 		<method name="GET" handler="shu.example.handlers.ProductsHandler"/>
 	</endpoint>
+	<endpoint name="order">
+		<method name="POST" handler="shu.example.handlers.OrderHandler"/>
+	</endpoint>
 </endpoints>

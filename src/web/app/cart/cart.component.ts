@@ -60,11 +60,12 @@ export class CartComponent {
 		this.addCheckoutParameters('PayPal', {
 			cmd: '_cart',
 			business: 'ruxincai@msn.com',
+			mc_currency: 'CAD',
 			upload: '1',
 			rm: '2',
 			charset: 'utf-8',
 			notify_url: 'http://127.0.0.1/simpleStore/ipn',
-			return: 'http://127.0.0.1/simpleStore/checkout',
+			return: 'http://127.0.0.1/simpleStore/api/order',
 			cancel_return: 'http://127.0.0.1/simpleStore/cancel'
 		});
 	}
