@@ -6,4 +6,9 @@
 	<endpoint name="order">
 		<method name="POST" handler="shu.example.handlers.OrderHandler"/>
 	</endpoint>
+	<endpoint name="transactions">
+		<default>
+			<method name="GET" handler="shu.example.handlers.TransactionsHandler"/>
+		</default>
+	</endpoint>
 </endpoints>

@@ -5,12 +5,9 @@
     //map tells the System loader where to look for things
     var  map = {
         'app':                        'app',
-
         '@angular':                   'node_modules/@angular', // sufficient if we didn't pin the version
         'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api', // get latest
-        'rxjs':                       'node_modules/rxjs',
-        'ts':                         'node_modules/plugin-typescript/lib/plugin.js',
-        'typescript':                 'node_modules/typescript/lib/typescript.js'
+        'rxjs':                       'node_modules/rxjs'
     };
 
     //packages tells the System loader how to load when no filename and/or no extension
@@ -49,11 +46,6 @@
     });
 
     var config = {
-        // DEMO ONLY! REAL CODE SHOULD NOT TRANSPILE IN THE BROWSER
-        transpiler: 'ts',
-        typescriptOptions: {
-            tsconfig: true
-        },
         meta: {
             'typescript': {
                 "exports": "ts"

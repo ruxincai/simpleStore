@@ -60,7 +60,7 @@ import 'rxjs/Rx';
 	`
 })
 
-export class ProductsComponent implements OnActivate {
+export class ProductsComponent {
     products: Product[] = [];
     items: Product[];
     pager: any = {};

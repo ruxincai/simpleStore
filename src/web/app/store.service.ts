@@ -11,7 +11,8 @@ export interface Product {
     imagePath: string;
 }
 
-let productsPromise = Promise.resolve(httpGet('api/products').then(extractJSON));
+let productsPromise = Promise.resolve(
+        httpGet('api/products').then(extractJSON));
 
 export class CartItem {
     constructor(public code: string, public product: Product,

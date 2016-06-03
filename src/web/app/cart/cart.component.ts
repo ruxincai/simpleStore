@@ -64,9 +64,9 @@ export class CartComponent {
 			upload: '1',
 			rm: '2',
 			charset: 'utf-8',
-			notify_url: 'http://127.0.0.1/simpleStore/ipn',
-			return: 'http://127.0.0.1/simpleStore/api/order',
-			cancel_return: 'http://127.0.0.1/simpleStore/cancel'
+			notify_url: 'http://127.0.0.1:8080/simpleStore/ipn',
+			return: 'http://127.0.0.1:8080/simpleStore/api/order',
+			cancel_return: 'http://127.0.0.1:8080/simpleStore/cancel'
 		});
 	}
 
@@ -81,7 +81,7 @@ export class CartComponent {
 		item.quantity = parseInt(target.value);
 	}
 
-	checkout(service?: String, clearCart?: boolean) {
+	checkout(service?: string, clearCart?: boolean) {
 		//select service
 		if (service === undefined) {
 			let p = this.checkoutParams[Object.keys(this.checkoutParams)[0]];
@@ -112,7 +112,7 @@ export class CartComponent {
 	}
 
 	checkoutPayPal(params, clearCart) {
-		let form = build({
+		let form: HTMLFormElement = <HTMLFormElement> build({
 			tag: 'form',
 			action: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
 			method: 'POST',

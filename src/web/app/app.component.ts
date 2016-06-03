@@ -9,6 +9,7 @@ import {CartComponent} from "./cart/cart.component";
 import {CancelComponent} from "./confirmation/cancel.component";
 import {IPNComponent} from "./confirmation/ipn.component";
 import {CheckOutComponent} from "./confirmation/checkout.component";
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'test-app',
@@ -19,7 +20,7 @@ import {CheckOutComponent} from "./confirmation/checkout.component";
 	</div>
 	<router-outlet></router-outlet>
 	`,
-    providers:  [DialogService, StoreService, PagingService],
+    providers:  [DialogService, StoreService, PagingService, Location],
     directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
@@ -32,6 +33,6 @@ import {CheckOutComponent} from "./confirmation/checkout.component";
     {path: '/checkout',  component: CheckOutComponent}
 ])
 export class AppComponent {
-    constructor(private router: Router) {
+    constructor(private router: Router, location: Location) {
     }
 }
