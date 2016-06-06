@@ -66,6 +66,8 @@
 
 	<target name="copy-resources">
 		<copy file="src/resources/shu/example/endpoints.xml"
+			  todir="target/production/shu/example"/>	
+		<copy file="src/resources/shu/example/endpoints.xml"
 			  todir="target/test/shu/example"/>
 	</target>
 

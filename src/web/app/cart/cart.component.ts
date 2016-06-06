@@ -19,7 +19,7 @@ import {Product} from "../store.service";
 	<thead>
 	<th>Item</th>
 	<th>Quantity</th>
-	<th>Price (CAD$)</th>
+	<th>Price (CAD $)</th>
 	</thead>
 	<tbody>
 	<tr *ngFor="let item of storeService.cartItems; let i=index; trackBy:itemIdTracker">
@@ -53,14 +53,13 @@ import {Product} from "../store.service";
 
 export class CartComponent {
 	checkoutParams: {} = {};
-	clearCart: boolean;
 
 	constructor(private storeService: StoreService,
 			private router: Router) {
 		this.addCheckoutParameters('PayPal', {
 			cmd: '_cart',
 			business: 'ruxincai@msn.com',
-			mc_currency: 'CAD',
+			currency_code: 'CAD',
 			upload: '1',
 			rm: '2',
 			charset: 'utf-8',
@@ -79,6 +78,7 @@ export class CartComponent {
 			target.value = 0;
 		}
 		item.quantity = parseInt(target.value);
+		this.storeService.saveCartItems();
 	}
 
 	checkout(service?: string, clearCart?: boolean) {
@@ -132,7 +132,7 @@ export class CartComponent {
 				tag: 'input', type: 'hidden', name: 'quantity_' + ctr, value: item.quantity
 			}));
 			form.appendChild(build({
-				tag: 'input', type: 'hidden', name: 'amount_' + ctr, value: this.getTotalPrice(item).toFixed(2)
+				tag: 'input', type: 'hidden', name: 'amount_' + ctr, value: item.product.price.toFixed(2)
 			}));
 		}
 		if (params.options) {
@@ -143,8 +143,8 @@ export class CartComponent {
 			});
 		}
 
+		sessionStorage['clearCart'] = clearCart;
 		// submit form
-		this.clearCart = clearCart == null || clearCart;
 		form.submit();
 	}
 

@@ -126,6 +126,14 @@ div, form {
     color: #ffffff !important;
     background-color: #007db8 !important;
 }
+.column > .separator {
+    border-top: 1px solid #808080;
+    margin: 4px 0;
+}
+.row > .separator {
+    border-left: 1px solid #808080;
+    margin: 0 4px;
+}
 
 .listTable {
     border-collapse: collapse;
@@ -206,7 +214,7 @@ test-app > :nth-child(3) {
     min-height: 100px;
 }
 
-test-products, test-detail, test-cart {
+test-products, test-detail, test-cart, test-checkout {
     padding: 15px 30px 30px;
 }
 
@@ -302,6 +310,13 @@ test-cart > :last-child > :first-child{
 }
 test-cart input {
     width: 35px;
+}
+
+test-checkout .name_col {
+    width: 100px;
+}
+test-checkout .val_col {
+    font-weight: bold;
 }
 
 .addToCart {

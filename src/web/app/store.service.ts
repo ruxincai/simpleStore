@@ -25,7 +25,6 @@ export class CartItem {
 
 @Injectable()
 export class StoreService {
-
     cartItems: CartItem[] = [];
 
     constructor() {
@@ -43,9 +42,7 @@ export class StoreService {
     }
 
     saveCartItems() {
-        let t = JSON.stringify(this.cartItems);
-        console.log('save cart items: ', t);
-        localStorage['cartItems'] = t;
+        localStorage['cartItems'] = JSON.stringify(this.cartItems);
     }
 
     addCartItem(product: Product, quantity?: number) {
@@ -86,6 +83,7 @@ export class StoreService {
     clearCart() {
         this.cartItems = [];
         this.saveCartItems();
+        sessionStorage['clearCart'] = null;
     }
 
     getCartItem(code: string) {

@@ -17,7 +17,7 @@ import 'rxjs/Rx';
 	</div>
 	<div class="cartInfo clickable" (click)="gotoCart($event)">
 	<img src="images/cart.png" width="20px" height="20px"/>
-	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} (CAD)</span>
+	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} CAD</span>
 	</div>
 	<div class="stretch">
 	<table class="listTable">
@@ -33,11 +33,9 @@ import 'rxjs/Rx';
 	</tbody>
 	</table>
 	</div>
-	<!--<div *ngIf="error">{{error}}</div>-->
-	<!--<div *ngIf="!ready" class="spinner"></div>-->
 	<div class="cartInfo clickable" (click)="gotoCart($event)">
 	<img src="images/cart.png" width="20px" height="20px"/>
-	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} (CAD)</span>
+	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} CAD</span>
 	</div>
 	<!-- pager -->
 	<ul *ngIf="pager.pages && pager.pages.length > 0" class="pagination">
