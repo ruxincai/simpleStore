@@ -63,7 +63,7 @@ export class CheckOutComponent implements OnActivate {
 					.then(val => {
 						this.testObj = val;
 						let num = parseInt(val.num_cart_items[0]);
-						this.numOfItems = Array(num).fill().map((x, i) => i + 1);
+						this.numOfItems = Array(num).fill('').map((x, i) => i + 1);
 					});
 			if (sessionStorage['clearCart']) {
 				storeService.clearCart();

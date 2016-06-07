@@ -23,7 +23,7 @@ import {getImage} from "../utils";
     <div class="column">
     <button (click)="gotoProducts()"><< Back to Products</button>
     <button class="addToCart" (click)="storeService.addCartItem(p)">Add to cart</button>
-    <button class="removeFromCart" (click)="storeService.removeItem(p)">Remove from cart</button>
+    <button class="removeFromCart" [disabled]="!storeService.hasItem(p)" (click)="storeService.removeItem(p)">Remove from cart</button>
     <div class="cartInfo clickable" (click)="gotoCart($event)">
 	<img src="images/cart.png" width="20px" height="20px"/>
 	<span> {{storeService.getTotalCount()}} items,  Total: $ {{storeService.getTotalPrice()}} (CAD)</span>
