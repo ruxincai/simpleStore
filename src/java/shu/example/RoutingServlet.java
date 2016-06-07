@@ -20,12 +20,12 @@ private static final long TIMESTAMP = System.currentTimeMillis() / 1000 * 1000;
 private static final String[] SCRIPTS = {
 		"node_modules/core-js/client/shim.min.js",
 		"node_modules/systemjs/dist/system-csp-production.src.js",
+		"node_modules/rxjs/bundles/Rx.js",
 		"node_modules/zone.js/dist/zone.js",
 		"node_modules/systemjs/dist/system.js",
 		"node_modules/systemjs/dist/system.src.js",
 		"node_modules/systemjs/dist/system-polyfills.js",
 		"node_modules/typescript/lib/typescript.js",
-		"node_modules/rxjs/bundles/Rx.js",
 		"node_modules/reflect-metadata/Reflect.js",
 		"systemjs.config.js"
 };

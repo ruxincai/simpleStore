@@ -312,10 +312,13 @@ test-cart input {
     width: 35px;
 }
 
-test-checkout .name_col {
-    width: 100px;
+test-checkout .detail > div {
+    margin: 4px;
 }
-test-checkout .val_col {
+test-checkout .detail > div > :first-child {
+    width: 150px;
+}
+test-checkout .detail > div > :last-child {
     font-weight: bold;
 }
 
