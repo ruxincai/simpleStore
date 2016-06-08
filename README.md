@@ -13,7 +13,7 @@
  starting with "local"
  1. Create your database called "shopping":
  	* `dropdb -U postgres shopping` _(if necessary)_
- 	* `createdb -U postgres homework`
+ 	* `createdb -U postgres shopping`
  	* 'psql -U postgres -d shopping -f createdb.sql' from {SIMPLE_APP_DIRECTORY}/src/sql directory.
  1. Open the project with [IntelliJ IDEA](https://www.jetbrains.com/idea/)
  1. Run `ant download` either from IDEA or from the command line.
@@ -29,7 +29,7 @@
  content below and save it in {TOMCAT_HOME}/conf/Catalina/localhost/simpleStore.xml)
  	* `<Context docBase="{SIMPLE_APP_DIRECTORY}/target/web"/>`
  1. Start Tomcat
- 1. Open the application in a supported browsers (chrome/FF/Edge): `http://localhost/simpleStore/`
+ 1. Open the application in a supported browsers (chrome/FF/Edge): `http://localhost:8080/simpleStore/`
  1. Access with ssl configuration
  	* https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html
  	* {java_home}/bin/keytool -genkey -alias tomcat -keyalg RSA
